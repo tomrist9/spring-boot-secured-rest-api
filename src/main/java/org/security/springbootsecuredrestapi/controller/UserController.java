@@ -29,7 +29,7 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.CREATED)
                         .body("User registered successfully with id: " + savedCustomer.getId());
             } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User registration failed"); //
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User registration failed");
             }
         } catch
         (Exception e) {

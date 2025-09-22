@@ -1,5 +1,4 @@
-
-
+-- Drop existing tables in correct order to avoid FK conflicts
 DROP TABLE IF EXISTS authorities CASCADE;
 DROP TABLE IF EXISTS contact_messages CASCADE;
 DROP TABLE IF EXISTS notice_details CASCADE;
@@ -9,7 +8,7 @@ DROP TABLE IF EXISTS account_transactions CASCADE;
 DROP TABLE IF EXISTS accounts CASCADE;
 DROP TABLE IF EXISTS customer CASCADE;
 
-
+-- Enable UUID extension (needed for uuid_generate_v4)
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- customer
@@ -40,8 +39,9 @@ CREATE TABLE accounts (
 INSERT INTO accounts (customer_id, account_number, account_type, branch_address, create_dt)
 VALUES (1, 1865764534, 'Savings', '123 Main Street, New York', CURRENT_DATE);
 
+-- account_transactions
 CREATE TABLE account_transactions (
-                                      transaction_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+                                      transaction_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
                                       account_number BIGINT NOT NULL REFERENCES accounts(account_number) ON DELETE CASCADE,
                                       customer_id INTEGER NOT NULL REFERENCES customer(customer_id) ON DELETE CASCADE,
                                       transaction_dt DATE NOT NULL,
@@ -52,41 +52,24 @@ CREATE TABLE account_transactions (
                                       create_dt DATE DEFAULT CURRENT_DATE
 );
 
-INSERT INTO account_transactions (transaction_id, account_number, customer_id,
-                                  transaction_dt, transaction_summary, transaction_type, transaction_amt,
-                                  closing_balance, create_dt)
-VALUES (uuid_generate_v4(), 1865764534, 1,
-        CURRENT_DATE - INTERVAL '7 days', 'Coffee Shop', 'Withdrawal', 30, 34500, CURRENT_DATE - INTERVAL '7 days');
+-- Sample transactions
+INSERT INTO account_transactions (account_number, customer_id, transaction_dt, transaction_summary, transaction_type, transaction_amt, closing_balance, create_dt)
+VALUES (1865764534, 1, CURRENT_DATE - INTERVAL '7 days', 'Coffee Shop', 'Withdrawal', 30, 34500, CURRENT_DATE - INTERVAL '7 days');
 
-INSERT INTO account_transactions (transaction_id, account_number, customer_id,
-                                  transaction_dt, transaction_summary, transaction_type, transaction_amt,
-                                  closing_balance, create_dt)
-VALUES (uuid_generate_v4(), 1865764534, 1,
-        CURRENT_DATE - INTERVAL '6 days', 'Uber', 'Withdrawal', 100, 34400, CURRENT_DATE - INTERVAL '6 days');
+INSERT INTO account_transactions (account_number, customer_id, transaction_dt, transaction_summary, transaction_type, transaction_amt, closing_balance, create_dt)
+VALUES (1865764534, 1, CURRENT_DATE - INTERVAL '6 days', 'Uber', 'Withdrawal', 100, 34400, CURRENT_DATE - INTERVAL '6 days');
 
-INSERT INTO account_transactions (transaction_id, account_number, customer_id,
-                                  transaction_dt, transaction_summary, transaction_type, transaction_amt,
-                                  closing_balance, create_dt)
-VALUES (uuid_generate_v4(), 1865764534, 1,
-        CURRENT_DATE - INTERVAL '5 days', 'Self Deposit', 'Deposit', 500, 34900, CURRENT_DATE - INTERVAL '5 days');
+INSERT INTO account_transactions (account_number, customer_id, transaction_dt, transaction_summary, transaction_type, transaction_amt, closing_balance, create_dt)
+VALUES (1865764534, 1, CURRENT_DATE - INTERVAL '5 days', 'Self Deposit', 'Deposit', 500, 34900, CURRENT_DATE - INTERVAL '5 days');
 
-INSERT INTO account_transactions (transaction_id, account_number, customer_id,
-                                  transaction_dt, transaction_summary, transaction_type, transaction_amt,
-                                  closing_balance, create_dt)
-VALUES (uuid_generate_v4(), 1865764534, 1,
-        CURRENT_DATE - INTERVAL '4 days', 'Ebay', 'Withdrawal', 600, 34300, CURRENT_DATE - INTERVAL '4 days');
+INSERT INTO account_transactions (account_number, customer_id, transaction_dt, transaction_summary, transaction_type, transaction_amt, closing_balance, create_dt)
+VALUES (1865764534, 1, CURRENT_DATE - INTERVAL '4 days', 'Ebay', 'Withdrawal', 600, 34300, CURRENT_DATE - INTERVAL '4 days');
 
-INSERT INTO account_transactions (transaction_id, account_number, customer_id,
-                                  transaction_dt, transaction_summary, transaction_type, transaction_amt,
-                                  closing_balance, create_dt)
-VALUES (uuid_generate_v4(), 1865764534, 1,
-        CURRENT_DATE - INTERVAL '2 days', 'OnlineTransfer', 'Deposit', 700, 35000, CURRENT_DATE - INTERVAL '2 days');
+INSERT INTO account_transactions (account_number, customer_id, transaction_dt, transaction_summary, transaction_type, transaction_amt, closing_balance, create_dt)
+VALUES (1865764534, 1, CURRENT_DATE - INTERVAL '2 days', 'OnlineTransfer', 'Deposit', 700, 35000, CURRENT_DATE - INTERVAL '2 days');
 
-INSERT INTO account_transactions (transaction_id, account_number, customer_id,
-                                  transaction_dt, transaction_summary, transaction_type, transaction_amt,
-                                  closing_balance, create_dt)
-VALUES (uuid_generate_v4(), 1865764534, 1,
-        CURRENT_DATE - INTERVAL '1 day', 'Amazon.com', 'Withdrawal', 100, 34900, CURRENT_DATE - INTERVAL '1 day');
+INSERT INTO account_transactions (account_number, customer_id, transaction_dt, transaction_summary, transaction_type, transaction_amt, closing_balance, create_dt)
+VALUES (1865764534, 1, CURRENT_DATE - INTERVAL '1 day', 'Amazon.com', 'Withdrawal', 100, 34900, CURRENT_DATE - INTERVAL '1 day');
 
 -- loans
 CREATE TABLE loans (
@@ -167,7 +150,7 @@ VALUES
 
 -- contact_messages
 CREATE TABLE contact_messages (
-                                  contact_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+                                  contact_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
                                   contact_name VARCHAR(50) NOT NULL,
                                   contact_email VARCHAR(100) NOT NULL,
                                   subject VARCHAR(500) NOT NULL,
@@ -182,15 +165,8 @@ CREATE TABLE authorities (
                              name VARCHAR(50) NOT NULL
 );
 
-INSERT INTO authorities (customer_id, name)
-VALUES (1, 'VIEWACCOUNT'),
-       (1, 'VIEWCARDS'),
-       (1, 'VIEWLOANS'),
-       (1, 'VIEWBALANCE');
-
--- Sil (DELETE) və sonra role insert
-DELETE FROM authorities;
-
+-- Insert roles
 INSERT INTO authorities (customer_id, name)
 VALUES (1, 'ROLE_USER'),
        (1, 'ROLE_ADMIN');
+
