@@ -34,7 +34,7 @@ Below are some Postman screenshots showing the API in action:
   ![Register Screenshot](docs/screenshots/register.png)
 
 - Fetch Cards (secured endpoint, `GET /myCards`)  
-  ![Cards Screenshot](docs/screenshots/myCards.png)
+  ![Cards Screenshot](src/main/java/org/security/springbootsecuredrestapi/screenshots/myCards.png)
 
 
 ## 📂 Related Projects
