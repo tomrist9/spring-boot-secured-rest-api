@@ -26,6 +26,17 @@ It is the **Phase 1** of the [Spring Security Series](https://github.com/tomrist
 
 ---
 
+## 📸 API Testing (Screenshots)
+
+Below are some Postman screenshots showing the API in action:
+
+- User Registration (`POST /register`)  
+  ![Register Screenshot](docs/screenshots/register.png)
+
+- Fetch Cards (secured endpoint, `GET /myCards`)  
+  ![Cards Screenshot](docs/screenshots/myCards.png)
+
+
 ## 📂 Related Projects
 This repository is part of the **Spring Security Series**:
 
