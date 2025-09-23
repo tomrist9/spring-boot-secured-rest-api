@@ -31,7 +31,7 @@ It is the **Phase 1** of the [Spring Security Series](https://github.com/tomrist
 Below are some Postman screenshots showing the API in action:
 
 - User Registration (`POST /register`)  
-  ![Register Screenshot](docs/screenshots/register.png)
+  ![Register Screenshot](src/main/java/org/security/springbootsecuredrestapi/screenshots/register.png)
 
 - Fetch Cards (secured endpoint, `GET /myCards`)  
   ![Cards Screenshot](src/main/java/org/security/springbootsecuredrestapi/screenshots/myCards.png)
