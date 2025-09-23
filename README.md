@@ -1,32 +1,43 @@
-# Spring Boot Secured REST API
+# 🔐 Spring Boot Secured REST API
 
-This project is a secured REST API built with **Spring Boot** and **Spring Security**.  
-It demonstrates how to implement user authentication and authorization using modern best practices.
+![Java](https://img.shields.io/badge/Java-17-blue)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0-brightgreen)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-Basic%20Auth-orange)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-## Features
+This project demonstrates how to secure REST APIs using **Spring Security** with **HTTP Basic Authentication** and **role-based authorization**.  
+It is the **Phase 1** of the [Spring Security Series](https://github.com/tomrist9/spring-security-series).
 
-✅ Spring Boot 3.x  
-✅ Spring Security 6.x  
-✅ RESTful API  
-✅ Secured endpoints with username/password authentication  
-✅ Role-based access control  
-✅ JWT (optional — to be added)  
-✅ MySQL integration  
-✅ Maven build
+---
 
-## Getting Started
+##  Features
+- Secure REST endpoints with Spring Security
+- HTTP Basic Authentication
+- Role-based access control (Admin, User)
+- Example endpoints for testing authorization
+- In-memory and database-based authentication support
 
-### Prerequisites
+---
 
-- Java 17+  
-- Maven 3.8+  
-- MySQL Server
+##  Tech Stack
+- Java 17  
+- Spring Boot 3  
+- Spring Security  
 
-### Running the application
+---
 
-1️⃣ Configure database settings in `src/main/resources/application.properties`
+## 📂 Related Projects
+This repository is part of the **Spring Security Series**:
 
-2️⃣ Run the application:
+- ✅ Phase 1: [Basic Secured REST API](https://github.com/tomrist9/spring-boot-secured-rest-api) *(this repo)*  
+- ✅ Phase 2: [JWT Authentication Template](https://github.com/tomrist9/spring-boot-jwt-login-template)  
+- ⏳ Phase 3: [OAuth2 Login Template](https://github.com/tomrist9/spring-boot-oauth2-login-template)  
+- 🎁 Bonus: [Keycloak Integration Template](https://github.com/tomrist9/spring-boot-keycloak-template)  
 
-```bash
-./mvnw spring-boot:run
+---
+
+## ▶️ How to Run
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/tomrist9/spring-boot-secured-rest-api.git
+
